@@ -1,5 +1,10 @@
 import java.io.*;
 import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 
 // Server class
 class Server {
@@ -20,6 +25,30 @@ class Server {
                 // socket object to receive incoming client
                 // requests
                 Socket client = server.accept();
+
+
+                // Accept a string
+                String str = "File Handling in Java using "+
+                        " FileWriter and FileReaders";
+
+//                if (!Files.exists(Paths.get("template.txt"))) {
+//                    Files.write(Paths.get("template.txt"), Arrays.asList(str));
+//                }
+
+                // attach a file to FileWriter
+                FileWriter fw=new FileWriter("output.txt");
+
+                File f = new File(String.valueOf(fw));
+
+                if (!f.exists() ) {
+                    for (int i = 0; i < str.length(); i++)
+                        fw.write(str.charAt(i));
+
+                    fw.write(System.getProperty("line.separator"));
+
+                    fw.write(LocalDateTime.now().toString());
+                    fw.close();
+                }
 
                 // Displaying that new client is connected
                 // to server
